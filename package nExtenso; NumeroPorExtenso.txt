@@ -1,0 +1,111 @@
+﻿public class NumeroPorExtenso {
+                double numero;
+//Construtores
+                public NumeroPorExtenso(double numero){
+                        this.numero = numero;
+                }
+//Metodos
+//gera uma string com o valor extenso do numero
+                public String Nomeador(int[] nomeado) {
+                        String[] NomesUnidade = {"", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove", "dez", "onze", "doze", "treze", "catorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove"};
+                        String[] NomesDezena = {"", "dez", "vinte", "trinta", "quarenta", "cinquenta", "sessenta", "setenta", "oitenta", "noventa"};
+                        String[] NomesCentena = {"", "cento", "duzentos", "trezentos", "quatrocentos", "quinhentos", "seiscentos", "setecentos", "oitocentos", "novecentos", "cem"};
+                        int PriValor = nomeado[2];
+                        int SegValor = nomeado[1];
+                        int TerValor = nomeado[0];
+                        int CasoE = ((SegValor*10) + PriValor);
+                        if (TerValor ==1 && SegValor ==0 && PriValor == 0 ) TerValor = 10; //cem
+//esceve o numero por extenso
+                        StringBuilder valorExtenso = new StringBuilder();
+                        if (TerValor > 0) {
+                                valorExtenso.append(NomesCentena[TerValor]);
+                                if (SegValor > 0 || PriValor > 0) valorExtenso.append(" e ");
+                        }
+                        if (SegValor !=1){
+                                if (SegValor > 0) {
+                                        valorExtenso.append(NomesDezena[SegValor]);
+                                        if (PriValor >0) valorExtenso.append(" e ");
+                                }
+                                if (PriValor > 0) {
+                                        valorExtenso.append(NomesUnidade[PriValor]);
+                                }
+                        }
+                        else {
+                                valorExtenso.append(NomesUnidade[CasoE]);
+                        }
+                        
+                return valorExtenso.toString();
+                }
+//separa os valores numericos de 3 em 3
+public void ParaTexto() {
+int NumeroReal =(int) Math.floor(this.numero);
+int Numero = NumeroReal;
+int cemMilhao = (NumeroReal / 100000000);
+int dezMilhao = (NumeroReal / 10000000) % 10;
+int milhao = (NumeroReal / 1000000) % 10;
+int cemMilhar = (NumeroReal / 100000) % 10;
+int dezMilhar = (NumeroReal / 10000) % 10;
+int milhar = (NumeroReal / 1000) % 10;
+int centena = (NumeroReal / 100) % 10;
+int dezena = (NumeroReal / 10) % 10;
+int unidade = NumeroReal % 10;
+int[] CDU = {centena, dezena, unidade};
+int[] CDM = {cemMilhar, dezMilhar, milhar};
+int[] CDMi = {cemMilhao, dezMilhao, milhao};
+//Somas para Sufixos
+int CDUs = (centena + dezena + unidade);
+int CDMs = (cemMilhar + dezMilhar + milhar);
+int CDMis = (cemMilhao + dezMilhao + milhao);
+String CeDeUn = Nomeador(CDU);
+String CmDmM = Nomeador(CDM);
+String CDMilhao = Nomeador(CDMi);
+//Escritor
+//exeções
+switch (Numero) {
+case 0:
+System.out.println("o Numero e Igual a zero Reais");
+break;
+case 1:
+System.out.println("o Numero e Igual a um Real");
+break;
+case 1000000:
+System.out.println("o Numero e Igual a um milhão de Reais");
+break;
+}
+//Todos os casos
+StringBuilder valorExtenso = new StringBuilder();
+        //Milhões
+        if(CDMis >=1) {
+                valorExtenso.append(CDMilhao);
+                if (milhao == 1 && dezMilhao ==0 && cemMilhao ==0) {
+                        valorExtenso.append(" milhão");
+                }
+                else {
+                        valorExtenso.append(" milhões");
+                }
+        }
+        
+        if (cemMilhar >= 1 && dezMilhar ==0 && milhar ==0) {
+                valorExtenso.append(" e ") ;
+        } else {valorExtenso.append(" ");}
+        
+        //Milhares
+        if(CDMs >=1) {
+                if (milhar == 1 && dezMilhar ==0 &&cemMilhar ==0) {
+                        valorExtenso.append("mil");}
+                else {
+                        valorExtenso.append(CmDmM +" mil");
+                        }
+        }
+        
+        
+        if ((dezMilhar == 1 && milhar == 10) && (dezena ==0 && unidade ==0)) valorExtenso.append(" ") ;
+        else{valorExtenso.append(" e ");}
+        
+        
+        
+        //Centenas
+        if(CDUs >=1)valorExtenso.append(CeDeUn);
+System.out.println(valorExtenso.toString());
+        }
+}
