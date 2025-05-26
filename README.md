@@ -1,3 +1,3 @@
 ## myJpkg
 
-Some small Java classes and packages that I use in a few projects."
+algumas classes e pacotes em java que eu fiz para pequenos projeto
